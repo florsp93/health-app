@@ -4,6 +4,8 @@ import reportWebVitals from "./reportWebVitals";
 
 import App from "./App";
 
+import "./components/sign-up-form/sign-up-form.styles.css";
+import "./components/form-input/form-input.styles.css";
 import "./index.css";
 import "./App.css";
 

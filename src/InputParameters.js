@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./InputParameters.css";
 
 const USER = {
   email: "",

@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { createNewUser, searchUser } from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/form-input.component";
 
 const defaultFormFields = {
@@ -27,10 +28,15 @@ const SignUpForm = () => {
 
     try {
       console.log(formFields);
+      createNewUser(formFields);
       resetFormFields();
     } catch (error) {
       console.log("error: ", error);
     }
+  };
+
+  const buscarUsuario = () => {
+    searchUser();
   };
 
   return (
@@ -67,6 +73,7 @@ const SignUpForm = () => {
 
         <label htmlFor="accountType">
           Acount Type
+          <br />
           <select
             className="selectStyle"
             required
@@ -101,6 +108,7 @@ const SignUpForm = () => {
 
         <button type="submit">Submit Form</button>
       </form>
+      <button onClick={buscarUsuario}>buscar</button>
     </div>
   );
 };
