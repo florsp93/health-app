@@ -1,14 +1,15 @@
-import "./App.css";
 import InputParameters from "./InputParameters";
+import SignUpForm from "./components/sign-up-form/sign-un-form.component";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <h1>Health App</h1>
       <p>Please, fill the following form to create a new account.</p>
-      <InputParameters />
+      {/* <InputParameters /> */}
+      <SignUpForm />
     </div>
   );
-}
+};
 
 export default App;

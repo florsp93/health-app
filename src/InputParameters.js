@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./InputParameters.css";
 
 const USER = {
@@ -60,6 +60,8 @@ function InputParameters() {
       case "both":
         newAccountType = "Patient & Caregiver";
         break;
+      default:
+        return null;
     }
     for (let user of usersData) {
       if (user.email === newUserData.email) {
