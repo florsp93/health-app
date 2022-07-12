@@ -1,12 +1,14 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {
-  collection,
   doc,
-  getDocs,
-  getFirestore,
   setDoc,
+  getDoc,
+  collection,
+  getFirestore,
 } from "firebase/firestore";
+
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBJMyqlJ2ncn8roGRg_X26JZa8smHf1VU",
@@ -21,7 +23,6 @@ const firebaseConfig = {
 // Initialize Firebase
 //const analytics = getAnalytics(firebaseApp);
 const firebaseApp = initializeApp(firebaseConfig);
-
 const database = getFirestore();
 
 export const createNewUser = (newUser) => {
@@ -30,15 +31,33 @@ export const createNewUser = (newUser) => {
   setDoc(usersDocument, newUser);
 };
 
-export const searchUser = async (user) => {
-  const usersColection = collection(database, "users");
+const auth = getAuth();
 
-  const usersColectionSnap = await getDocs(usersColection);
-
-  if (usersColectionSnap) {
-    const colectionData = usersColectionSnap.data();
-    console.log("document data: ", colectionData);
-  } else {
-    console.log("no existe doc");
-  }
+export const createNewUserWithEmailAndPass = async (userToCreate) => {
+  return await createUserWithEmailAndPassword(
+    auth,
+    userToCreate.email,
+    userToCreate.password
+  );
+  // .then((userCredential) => {
+  //   const user = userCredential.user;
+  //   console.log("Usuario creado: ", user.email);
+  // })
+  // .catch((error) => {
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  //   console.log("Error: ", errorCode, errorMessage);
+  // });
 };
+
+// export const searchUser = async (userToSearch) => {
+//   const docRef = doc(database, "users", userToSearch.email);
+//   const docSnap = await getDoc(docRef);
+
+//   if (docSnap.exists()) {
+//     console.log("Document data:", docSnap.data());
+//   } else {
+//     console.log("No such document!");
+//     return null;
+//   }
+// };

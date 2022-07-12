@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-import { createNewUser, searchUser } from "../../utils/firebase/firebase.utils";
+import {
+  createNewUser,
+  createNewUserWithEmailAndPass,
+} from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/form-input.component";
 
 const defaultFormFields = {
@@ -25,18 +28,30 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Usuario a crear: ", formFields);
 
     try {
-      console.log(formFields);
-      createNewUser(formFields);
+      await createNewUserWithEmailAndPass(formFields);
+      console.log("usuario creado");
       resetFormFields();
     } catch (error) {
-      console.log("error: ", error);
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("incorrect password");
+          break;
+        case "auth/weak-password":
+          alert("to short password");
+          break;
+        case "auth/email-already-in-use":
+          alert("email already in use");
+          break;
+        case "auth/user-not-found":
+          alert("no existe usuario");
+          break;
+        default:
+          console.log("Error desconocido", error);
+      }
     }
-  };
-
-  const buscarUsuario = () => {
-    searchUser();
   };
 
   return (
@@ -108,7 +123,6 @@ const SignUpForm = () => {
 
         <button type="submit">Submit Form</button>
       </form>
-      <button onClick={buscarUsuario}>buscar</button>
     </div>
   );
 };
