@@ -1,0 +1,27 @@
+input {
+    width: 200px;
+    height: 30px;
+    margin: 5px 0px 20px 0px;
+    border: 0px;
+    background-color: #e8e8e8;
+    padding-left: 10px;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    padding-left: 10px;
+    background-color: #c5e3c7;
+  }
+  
+  input[type="submit"] {
+    width: 150px;
+    height: auto;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 0px;
+    margin-top: 6%;
+  }
+  

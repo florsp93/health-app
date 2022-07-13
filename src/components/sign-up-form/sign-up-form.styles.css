@@ -1,0 +1,23 @@
+form {
+    padding-top: 6%;
+  }
+   
+  select,
+  option {
+    width: 212px;
+    height: 30px;
+    margin: 5px 0px 20px 0px;
+    border: 0px;
+    background-color: #e8e8e8;
+  }
+  select:focus {
+    outline: none;
+    background-color: #c5e3c7;
+  }
+  
+  .selectStyle {
+    color: gray;
+    text-align: center;
+    font-size: 70%;
+  }
+  
