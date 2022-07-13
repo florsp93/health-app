@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
+  auth,
   createNewUser,
   createNewUserWithEmailAndPass,
 } from "../../utils/firebase/firebase.utils";
@@ -17,6 +18,11 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
 
+  // useEffect(() => {
+  //   const currentUser = auth.currentUser;
+  //   console.log("current user: ", currentUser);
+  // }, []);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -29,10 +35,13 @@ const SignUpForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Usuario a crear: ", formFields);
-
+    console.log("auth 0: ", auth.currentUser.email);
     try {
+      console.log("auth 1: ", auth.currentUser.email);
       await createNewUserWithEmailAndPass(formFields);
+      console.log("auth 2: ", auth.currentUser.email);
       console.log("usuario creado");
+      console.log("auth 3: ", auth.currentUser.email);
       resetFormFields();
     } catch (error) {
       switch (error.code) {

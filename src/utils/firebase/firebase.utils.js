@@ -8,7 +8,11 @@ import {
   getFirestore,
 } from "firebase/firestore";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBBJMyqlJ2ncn8roGRg_X26JZa8smHf1VU",
@@ -25,13 +29,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const database = getFirestore();
 
-export const createNewUser = (newUser) => {
-  const usersDocument = doc(database, "users", newUser.email);
-  console.log(newUser);
-  setDoc(usersDocument, newUser);
-};
-
-const auth = getAuth();
+export const auth = getAuth();
 
 export const createNewUserWithEmailAndPass = async (userToCreate) => {
   return await createUserWithEmailAndPassword(
@@ -39,16 +37,38 @@ export const createNewUserWithEmailAndPass = async (userToCreate) => {
     userToCreate.email,
     userToCreate.password
   );
-  // .then((userCredential) => {
-  //   const user = userCredential.user;
-  //   console.log("Usuario creado: ", user.email);
-  // })
-  // .catch((error) => {
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  //   console.log("Error: ", errorCode, errorMessage);
-  // });
 };
+
+export const authListener = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+};
+
+// export const createNewUser = (newUser) => {
+//   const usersDocument = doc(database, "users", newUser.email);
+//   console.log(newUser);
+//   setDoc(usersDocument, newUser);
+// };
+
+// .then((userCredential) => {
+//   const user = userCredential.user;
+//   console.log("Usuario creado: ", user.email);
+// })
+// .catch((error) => {
+//   const errorCode = error.code;
+//   const errorMessage = error.message;
+//   console.log("Error: ", errorCode, errorMessage);
+// });
 
 // export const searchUser = async (userToSearch) => {
 //   const docRef = doc(database, "users", userToSearch.email);

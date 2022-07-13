@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 
 import App from "./App";
+import { UserProvider } from "./contexts/user.context";
 
 import "./components/sign-up-form/sign-up-form.styles.css";
 import "./components/form-input/form-input.styles.css";
@@ -11,7 +12,9 @@ import "./App.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
