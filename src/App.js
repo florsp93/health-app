@@ -1,13 +1,24 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import SignUpForm from "./components/sign-up-form/sign-up-form.component";
+import { SignInForm } from "./components/sign-in-form/sign-in-form.component";
+import { signOutUser } from "./utils/firebase/firebase.utils";
 
 import { UserContext } from "./contexts/user.context";
 
 const App = () => {
   const { currentUser } = useContext(UserContext);
 
+  useEffect(() => {
+    console.log("current user: ", currentUser);
+  }, []);
+
   const signOutHandler = async () => {
+    signOutUser();
     console.log("signed out");
+  };
+
+  const pruebaLsitener = () => {
+    console.log(currentUser);
   };
 
   return (
@@ -24,7 +35,11 @@ const App = () => {
           SIGN IN
         </span>
       )}
-      <SignUpForm />
+      <div className="forms-div">
+        <SignUpForm />
+        <SignInForm />
+      </div>
+      <button onClick={signOutHandler}>sign out</button>
     </div>
   );
 };

@@ -1,16 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  collection,
-  getFirestore,
-} from "firebase/firestore";
 
 import {
   getAuth,
-  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
@@ -27,7 +21,6 @@ const firebaseConfig = {
 // Initialize Firebase
 //const analytics = getAnalytics(firebaseApp);
 const firebaseApp = initializeApp(firebaseConfig);
-const database = getFirestore();
 
 export const auth = getAuth();
 
@@ -39,19 +32,35 @@ export const createNewUserWithEmailAndPass = async (userToCreate) => {
   );
 };
 
-export const authListener = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      console.log(uid);
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+// export const authListener = () => {
+//   onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       const uid = user.uid;
+//       console.log(user);
+//     } else {
+//       // User is signed out
+//     }
+//   });
+// };
+
+export const signInAuthUserWithEmailAndPassword = async (userToSignIn) => {
+  if (!userToSignIn.email || !userToSignIn.password) return;
+  console.log(userToSignIn);
+  return await signInWithEmailAndPassword(
+    auth,
+    userToSignIn.email,
+    userToSignIn.password
+  );
+};
+
+export const signOutUser = () => {
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      // An error happened.
+    });
 };
 
 // export const createNewUser = (newUser) => {
