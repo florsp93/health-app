@@ -1,4 +1,4 @@
-export const FormInput = ({ label, ...otherProps }) => {
+const FormInput = ({ label, ...otherProps }) => {
   return (
     <div>
       {label && <label>{label}</label>}
@@ -7,3 +7,5 @@ export const FormInput = ({ label, ...otherProps }) => {
     </div>
   );
 };
+
+export default FormInput;

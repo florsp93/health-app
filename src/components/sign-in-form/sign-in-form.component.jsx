@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { FormInput } from "../form-input/form-input.component";
+import FormInput from "../form-input/form-input.component";
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
 const defaultFormFields = {
@@ -8,8 +8,9 @@ const defaultFormFields = {
   password: "",
 };
 
-export const SignInForm = () => {
+const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,7 +35,6 @@ export const SignInForm = () => {
       }
     }
     console.log("User authenticated: ", formFields);
-    setFormFields(defaultFormFields);
   };
 
   return (
@@ -48,7 +48,7 @@ export const SignInForm = () => {
           required
           onChange={handleChange}
           name="email"
-          value={formFields.email}
+          value={email}
         />
         <br />
         <FormInput
@@ -57,7 +57,7 @@ export const SignInForm = () => {
           required
           onChange={handleChange}
           name="password"
-          value={formFields.password}
+          value={password}
         />
         <div>
           <button type="submit">Sign In</button>
@@ -66,3 +66,5 @@ export const SignInForm = () => {
     </div>
   );
 };
+
+export default SignInForm;

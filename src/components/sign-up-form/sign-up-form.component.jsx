@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import {
-  auth,
-  createNewUserWithEmailAndPass,
-} from "../../utils/firebase/firebase.utils";
-import { FormInput } from "../form-input/form-input.component";
+import FormInput from "../form-input/form-input.component";
+import { createNewUserWithEmailAndPass } from "../../utils/firebase/firebase.utils";
 
 const defaultFormFields = {
   email: "",
@@ -17,15 +14,6 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
 
-  useEffect(() => {
-    const currentUser = auth.currentUser;
-    console.log("current user: ", currentUser);
-  }, []);
-
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -34,14 +22,8 @@ const SignUpForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Usuario a crear: ", formFields);
-    //  console.log("auth 0: ", auth.currentUser.email);
     try {
-      //  console.log("auth 1: ", auth.currentUser.email);
       await createNewUserWithEmailAndPass(formFields);
-      //console.log("auth 2: ", auth.currentUser.email);
-      // console.log("usuario creado");
-      //console.log("auth 3: ", auth.currentUser.email);
-      resetFormFields();
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -65,8 +47,8 @@ const SignUpForm = () => {
 
   return (
     <div className="sign-up-container">
-      <h2>Crea tu cuenta</h2>
-      <span>Completa todos los datos</span>
+      <h2>Create your account</h2>
+      <span>Please complete all the fields</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="First Name"
