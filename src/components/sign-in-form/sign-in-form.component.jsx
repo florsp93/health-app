@@ -34,7 +34,6 @@ const SignInForm = () => {
           console.log("Error desconocido", error);
       }
     }
-    console.log("User authenticated: ", formFields);
   };
 
   return (

@@ -9,13 +9,8 @@ import { UserContext } from "./contexts/user.context";
 const App = () => {
   const { currentUser } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log("current user: ", currentUser);
-  }, [currentUser]);
-
   const signOutHandler = async () => {
     signOutUser();
-    console.log("signed out");
   };
 
   return (

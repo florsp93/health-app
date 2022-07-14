@@ -21,7 +21,6 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Usuario a crear: ", formFields);
     try {
       await createNewUserWithEmailAndPass(formFields);
     } catch (error) {
@@ -42,7 +41,6 @@ const SignUpForm = () => {
           console.log("Error desconocido", error);
       }
     }
-    console.log("Usuario creado: ", formFields);
   };
 
   return (
