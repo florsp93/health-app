@@ -21,3 +21,30 @@
 display: flex;
 justify-content: space-around;
 }
+
+button {
+  background-color: rgba(76, 175, 80, 0);
+    color: black;
+    background-color: #94b196
+
+    ;
+    border: 2px solid #94b196
+
+    ;
+    margin-top: 1px;
+    padding: 6px 14px;
+    text-align: center;
+    font-size: 0.9em;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+button:hover {
+  border: 2px solid #94b196;
+  background-color: rgba(253, 245, 230, 0);
+  margin-top: 1px;
+  padding: 6px 14px;
+  text-transform: uppercase;
+}

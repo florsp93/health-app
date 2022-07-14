@@ -22,7 +22,10 @@ const App = () => {
     <div className="App">
       <h1>Health App</h1>
       {currentUser ? (
-        <button onClick={signOutHandler}>Sign Out</button>
+        <div>
+          <h3>Hello {currentUser.email}</h3>
+          <button onClick={signOutHandler}>Sign Out</button>
+        </div>
       ) : (
         <div className="forms-div">
           <SignUpForm />

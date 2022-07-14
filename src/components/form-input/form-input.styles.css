@@ -6,6 +6,7 @@ input {
     background-color: #e8e8e8;
     padding-left: 10px;
   }
+  
   input:focus,
   textarea:focus {
     outline: none;
