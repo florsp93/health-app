@@ -1,16 +1,11 @@
-import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  collection,
-  getFirestore,
-} from "firebase/firestore";
+import { initializeApp } from "firebase/app";
 
 import {
   getAuth,
+  signOut,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
@@ -24,10 +19,8 @@ const firebaseConfig = {
   measurementId: "G-6PKK54ZZ62",
 };
 
-// Initialize Firebase
 //const analytics = getAnalytics(firebaseApp);
 const firebaseApp = initializeApp(firebaseConfig);
-const database = getFirestore();
 
 export const auth = getAuth();
 
@@ -39,45 +32,26 @@ export const createNewUserWithEmailAndPass = async (userToCreate) => {
   );
 };
 
-export const authListener = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      console.log(uid);
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+export const signInAuthUserWithEmailAndPassword = async (userToSignIn) => {
+  if (!userToSignIn.email || !userToSignIn.password) return;
+  console.log(userToSignIn);
+  return await signInWithEmailAndPassword(
+    auth,
+    userToSignIn.email,
+    userToSignIn.password
+  );
 };
 
-// export const createNewUser = (newUser) => {
-//   const usersDocument = doc(database, "users", newUser.email);
-//   console.log(newUser);
-//   setDoc(usersDocument, newUser);
-// };
+export const signOutUser = () => {
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      console.log("SignOut Error: ", error);
+      // An error happened.
+    });
+};
 
-// .then((userCredential) => {
-//   const user = userCredential.user;
-//   console.log("Usuario creado: ", user.email);
-// })
-// .catch((error) => {
-//   const errorCode = error.code;
-//   const errorMessage = error.message;
-//   console.log("Error: ", errorCode, errorMessage);
-// });
-
-// export const searchUser = async (userToSearch) => {
-//   const docRef = doc(database, "users", userToSearch.email);
-//   const docSnap = await getDoc(docRef);
-
-//   if (docSnap.exists()) {
-//     console.log("Document data:", docSnap.data());
-//   } else {
-//     console.log("No such document!");
-//     return null;
-//   }
-// };
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
