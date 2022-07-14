@@ -10,6 +10,7 @@ form {
     border: 0px;
     background-color: #e8e8e8;
   }
+  
   select:focus {
     outline: none;
     background-color: #c5e3c7;
